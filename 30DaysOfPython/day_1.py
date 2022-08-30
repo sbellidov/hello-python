@@ -1,4 +1,6 @@
-# LEVEL 2
+# Write a python comment saying 'Day 2: 30 Days of python programming'
+
+# # LEVEL 2
 
 # 2.1 - Comprobar la versión
 # -->> Version 3.10.6
