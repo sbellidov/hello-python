@@ -1,5 +1,5 @@
 # Exercises - Day 7
-'''
+
 # sets
 it_companies = {'Facebook', 'Google', 'Microsoft', 'Apple', 'IBM', 'Oracle', 'Amazon'}
 A = {19, 22, 24, 20, 25, 26}
@@ -84,7 +84,7 @@ print(A.symmetric_difference(B))
 
 # 7 - Delete the sets completely
 del A,B
-'''
+
 # Exercises: Level 3
 age_list = [22, 19, 24, 25, 26, 24, 25, 24]
 # 1 - Convert the ages to a set and compare the length of the list and the set, which one is bigger?
