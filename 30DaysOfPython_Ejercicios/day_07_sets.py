@@ -97,7 +97,7 @@ print(f"Set: {len(age_set)}")
 print('STRING: Concatenación de caracteres que forman una o más palabras. Puede trabajarse cada letra como si de un elemento de una lista se tratara')
 print('LISTA: Un conjunto de elementos que pueden estar repetidos y con un orden establecido. Su contenido es modificable')
 print('TUPLA: Un conjunto de elementos que pueden estar repetidos y con un orden establecido. Su contenido es ininmutable una vez declarada')
-print('LIST: Conjunto de valores, no repetidos, sin orden establecido, modificable')
+print('SET: Conjunto de valores, no repetidos, sin orden establecido, modificable')
 
 # 3 - I am a teacher and I love to inspire and teach people.
 # How many unique words have been used in the sentence? Use the split methods and set to get the unique words.
