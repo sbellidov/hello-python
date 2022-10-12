@@ -226,16 +226,17 @@ def calculate_median (list):
 
 def calculate_range (list):
     return max(list) - min(list)
-'''
-def calculate_mode (list):
-    valores_unicos = set(list)
-    new_dict = dict.fromkeys(valores_unicos)
-    for i in valores_unicos:
-        new_dict[i] = list.count(i)
-    new_dict_ordered = dict(sorted(new_dict.items(), key=lambda item: item[1]))
-    lista_ordenada = new_dict_ordered.keys()
-    return lista_ordenada
-'''
+
+def calculate_mode(list):
+    unique_values = set(list)
+    freq = dict.fromkeys(unique_values,0)
+    mode_max_value = 0
+    for element in list:
+        freq[element] += 1
+        if freq[element] > mode_max_value:
+            mode_max_value = freq[element]
+            mode = { 'mode': element, 'count': mode_max_value}
+    return mode
 
 def calculate_variance (list):
     avg = calculate_mean(values)
@@ -252,7 +253,7 @@ def calculate_std (list):
 print(f'Media: {calculate_mean(values)}')
 print(f'Mediana: {calculate_median(values)}')
 print(f'Rango: {calculate_range(values)}')
-# print(f'Moda: {calculate_mode(values)}')
+print(f'Moda: {calculate_mode(values)}')
 print(f'Varianza: {calculate_variance(values)}')
 print(f'Desv std: {calculate_std(values)}')
 
