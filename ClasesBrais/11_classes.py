@@ -61,8 +61,8 @@ print(my_other_person.full_name)
 # Variable privada con __ (doble guión antes del nombre)
 class Person5:
     def __init__(self, name, surname, alias = 'Sin alias'): # Esto no es una función, es un constructor de clase
-        self.full_name = f'{name} {surname} ({alias})'
-        self.__name = name
+        self.full_name = f'{name} {surname} ({alias})' # Propiedad pública
+        self.__name = name # Propiedad privada
         self.__surname = surname
     
     def get_name(self):
