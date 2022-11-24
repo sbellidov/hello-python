@@ -54,9 +54,29 @@ print(list(filter(lambda text: len(text) >= 6 , countries)))
 print(list(filter(lambda text: text[0] == 'E' , countries)))
 
 # 8 - Chain two or more list iterators (eg. arr.map(callback).filter(callback).reduce(callback))
+print(list(filter( lambda item: len(item) > 6 ,list(map(lambda item: item.upper(),countries )))))
+
 # 9 - Declare a function called get_string_lists which takes a list as a parameter and then returns a list containing only string items.
+input_list = ['Hola', 89, True, [7,'X'], 'string', 'Se acaba', 7, False]
+
+def get_string_lists(lista):
+    return list(filter( lambda item : type(item) == str , lista))
+
+print(get_string_lists(input_list))
+
 # 10 - Use reduce to sum all the numbers in the numbers list.
+from functools import reduce
+print(reduce(lambda x,y: x+y , numbers, 0))
+
 # 11 - Use reduce to concatenate all the countries and to produce this sentence: Estonia, Finland, Sweden, Denmark, Norway, and Iceland are north European countries
+def join_countries(first_word, second_word):
+    if second_word:
+        return first_word + ", " + second_word
+    else:
+        return "b"
+
+print(reduce(join_countries,countries) + " are north European countries")
+
 # 12 - Declare a function called categorize_countries that returns a list of countries with some common pattern (you can find the countries list in this repository as countries.js(eg 'land', 'ia', 'island', 'stan')).
 # 13 - Create a function returning a dictionary, where keys stand for starting letters of countries and values are the number of country names starting with that letter.
 # 14 - Declare a get_first_ten_countries function - it returns a list of first ten countries from the countries.js list in the data folder.
