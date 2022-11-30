@@ -77,11 +77,37 @@ def join_countries(first_word, second_word):
 
 print(reduce(join_countries,countries) + " are north European countries")
 
-# 12 - Declare a function called categorize_countries that returns a list of countries with some common pattern (you can find the countries list in this repository as countries.js(eg 'land', 'ia', 'island', 'stan')).
-# 13 - Create a function returning a dictionary, where keys stand for starting letters of countries and values are the number of country names starting with that letter.
-# 14 - Declare a get_first_ten_countries function - it returns a list of first ten countries from the countries.js list in the data folder.
-# 15 - Declare a get_last_ten_countries function that returns the last ten countries in the countries list.
+# 12 - Declare a function called categorize_countries that returns a list of countries with some common pattern
+# (you can find the countries list in this repository as countries.js(eg 'land', 'ia', 'island', 'stan')).
+import countries
 
+def categorize_countries(countries_list, pattern):
+    print(list(filter(lambda text: pattern.lower() in text.lower() , countries_list)))
+
+#pattern_input = input('Introduzca patrón de búsqueda de paises: ')
+#categorize_countries(countries.countries, pattern_input)
+
+# 13 - Create a function returning a dictionary, where keys stand for starting letters of countries and values are the number of country names starting with that letter.
+def create_dict_using_first_letter(country_list):
+    country_list_first_letter = list(map(lambda item: item[0] , country_list ))
+    return { x:country_list_first_letter.count(x) for x in country_list_first_letter }
+    
+print(create_dict_using_first_letter(countries.countries))
+
+
+# 14 - Declare a get_first_ten_countries function - it returns a list of first ten countries from the countries.py list in the data folder.
+def get_first_ten_countries(country_list):
+    x = 10
+    return country_list[:x]
+
+print(get_first_ten_countries(countries.countries))
+
+# 15 - Declare a get_last_ten_countries function that returns the last ten countries in the countries list.
+def get_last_ten_countries(country_list):
+    x = 10
+    return country_list[-x:len(country_list)]
+
+print(get_last_ten_countries(countries.countries))
 
 # Exercises: Level 3
 
