@@ -113,5 +113,52 @@ print(get_last_ten_countries(countries.countries))
 
 # 1 - Use the countries_data.py (https://github.com/Asabeneh/30-Days-Of-Python/blob/master/data/countries-data.py) file and follow the tasks below:
 #   * Sort countries by name, by capital, by population
+import countries_data
+
+def print_sorted(countries, sorting, limit='', reverse=False):
+    sorted_list = sorted(countries, key=lambda d: d[sorting] , reverse=reverse )
+    for i in range(limit or len(sorted_list)):
+        print(i+1,"-",sorted_list[i]['name'],"(",sorted_list[i]['population'],")","-",sorted_list[i]['capital'])
+
+print_sorted(countries_data.countries,'population')
+print_sorted(countries_data.countries,'name')
+print_sorted(countries_data.countries,'capital')
+
 #   * Sort out the ten most spoken languages by location.
+
+list_of_all_languages = [] # Mando todos los elementos de 'languages' a una lista
+for i in range(len(countries_data.countries)):
+    list_of_all_languages += countries_data.countries[i]['languages']
+
+most_spoken = { x:list_of_all_languages.count(x) for x in list_of_all_languages } # Creo un diccionario con el idioma como key y número de repeticiones como value
+most_spoken_sorted = dict(sorted(most_spoken.items(), key=lambda item: item[1] , reverse=True)) # Diccionario ordenado descendente por valor
+
+from itertools import islice    # Me quedo con los top 10 de lenguajes más hablados
+def take(top, most_spoken_sorted):
+    return list(islice(most_spoken_sorted, top))
+
+print(take(10,most_spoken_sorted))
+
+'''
+country_list_first_letter = list(map(lambda item: item[0] , country_list ))
+    return { x:country_list_first_letter.count(x) for x in country_list_first_letter }
+'''
+
+
+
 #   * Sort out the ten most populated countries.
+print_sorted(countries_data.countries,'population',10,True)
+
+'''
+   {
+        "name": "American Samoa",
+        "capital": "Pago Pago",
+        "languages": [
+            "English",
+            "Samoan"
+        ],
+        "population": 57100,
+        "flag": "https://restcountries.eu/data/asm.svg",
+        "currency": "United State Dollar"
+    },
+'''
