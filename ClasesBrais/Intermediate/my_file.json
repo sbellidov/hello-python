@@ -1,0 +1,13 @@
+{
+    "name": "Sergio",
+    "surname": "Bellido",
+    "age": 38,
+    "gender": "Hombre",
+    "country": "Spain",
+    "city": "M\u00e1laga",
+    "languages": [
+        "Python",
+        "SQL",
+        "JavaScript"
+    ]
+}
