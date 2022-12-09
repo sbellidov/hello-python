@@ -134,28 +134,6 @@ print(len(list(set(emails_found))))
 
 # 5 - Find the most common words in the English language. Call the name of your function find_most_common_words,
 # it will take two parameters - a string or a file and a positive integer, indicating the number of words.
-def clean_text (text):
-    import string
-    text = text.lower() # Normalizado a minúsculas
-    text = text.translate({ord(c): None for c in string.punctuation+'¡'}) # Eliminados signos de puntuación
-    text = text.replace('\n',' ') # Cambio retornos de carro por espacios
-    text = text.split()
-    return text
-
-def count_words (words):
-    return list(map(lambda x:(x,words.count(x)), list(set(words))))
-
-def sort_words (words):
-    return sorted(words, key=lambda x: x[1], reverse=True)
-
-def find_most_common_words(filename,filetop):
-    with open(filename, 'r') as file:
-        return sort_words(count_words(clean_text(file.read())))[:filetop]
-
-print(find_most_common_words('30DaysOfPython_Ejercicios/data_files/sample_text_1.txt',10))
-print(find_most_common_words('30DaysOfPython_Ejercicios/data_files/sample_text_2.txt',10))
-
-
 
 # Your function will return an array of tuples in descending order. Check the output
 #       # Your output should look like this
@@ -180,7 +158,149 @@ print(find_most_common_words('30DaysOfPython_Ejercicios/data_files/sample_text_2
 #       (6, 'of'),
 #       (5, 'and')]
 
-# 6 - Use the function, find_most_frequent_words to find: a) The ten most frequent words used in Obama's speech b) The ten most frequent words used in Michelle's speech c) The ten most frequent words used in Trump's speech d) The ten most frequent words used in Melina's speech
-# 7 - Write a python application that checks similarity between two texts. It takes a file or a string as a parameter and it will evaluate the similarity of the two texts. For instance check the similarity between the transcripts of Michelle's and Melina's speech. You may need a couple of functions, function to clean the text(clean_text), function to remove support words(remove_support_words) and finally to check the similarity(check_text_similarity). List of stop words are in the data directory
+def clean_text (text):
+    import string
+    text = text.lower() # Normalizado a minúsculas
+    text = text.translate({ord(c): None for c in string.punctuation+'¡'}) # Eliminados signos de puntuación
+    text = text.replace('\n',' ') # Cambio retornos de carro por espacios
+    text = text.split()
+    return text
+
+def count_words (words):
+    return list(map(lambda x:(x,words.count(x)), list(set(words))))
+
+def sort_words (words):
+    return sorted(words, key=lambda x: x[1], reverse=True)
+
+def find_most_common_words(filename,filetop):
+    with open(filename, 'r') as file:
+        return sort_words(count_words(clean_text(file.read())))[:filetop]
+
+print(find_most_common_words('30DaysOfPython_Ejercicios/data_files/sample_text_1.txt',10))
+print(find_most_common_words('30DaysOfPython_Ejercicios/data_files/sample_text_2.txt',10))
+
+
+# 6 - Use the function, find_most_frequent_words to find:
+#   a) The ten most frequent words used in Obama's speech
+print(f'*** Obama speach - Palabras más repetidas ***')
+print(find_most_common_words('30DaysOfPython_Ejercicios/data_files/obama_speech.txt',10))
+
+#   b) The ten most frequent words used in Michelle's speech
+print(f'*** Michelle Obama speach - Palabras más repetidas ***')
+print(find_most_common_words('30DaysOfPython_Ejercicios/data_files/michelle_obama_speech.txt',10))
+
+#   c) The ten most frequent words used in Trump's speech
+print(f'*** Donald Trump speach - Palabras más repetidas ***')
+print(find_most_common_words('30DaysOfPython_Ejercicios/data_files/donald_speech.txt',10))
+
+#   d) The ten most frequent words used in Melina's speech
+print(f'*** Melania Trump speach - Palabras más repetidas ***')
+print(find_most_common_words('30DaysOfPython_Ejercicios/data_files/melania_trump_speech.txt',10))
+
+
+# 7 - Write a python application that checks similarity between two texts.
+#    [X] It takes a file or a string as a parameter and it will evaluate the similarity of the two texts.
+#    [X] For instance check the similarity between the transcripts of Michelle's and Melina's speech.
+#    [ ] You may need a couple of functions:
+#        [X] function to clean the text(clean_text)
+#        [X] function to remove support words(remove_support_words) List of stop words are in the data directory
+#    [ ] and finally to check the similarity(check_text_similarity).
+from data_files.stop_words import stop_words
+
+def get_content(file_txt):
+    try:
+        file = open(file_txt).read()
+        return file
+    except FileNotFoundError:
+        return file_txt
+
+def clean_text_2(text):
+    text = text.lower() # Normalizado a minúsculas
+    text = text.replace('\n',' ') # Cambio retornos de carro por espacios
+    text = text.replace('.',' ') # Cambio puntos por espacios
+    text = text.replace(',',' ') # Cambio comas por espacios
+    text = text.replace('—',' ') # Cambio guiones por espacios
+    text = text.split()
+    return text
+
+def filter_words_in_list( words_list , filter_list ):
+    return list(filter(lambda word: word not in filter_list , words_list))
+
+def check_similarity(file_txt_1,file_txt_2):
+    file_1 = get_content(file_txt_1)
+    file_2 = get_content(file_txt_2)
+
+    file_1 = clean_text_2(file_1)
+    file_2 = clean_text_2(file_2)
+
+    file_1 = filter_words_in_list(file_1, stop_words)
+    file_2 = filter_words_in_list(file_2, stop_words)
+
+    import difflib
+    result = difflib.SequenceMatcher(a = file_1, b = file_2)
+    return result.ratio()
+
+print(check_similarity(
+    '30DaysOfPython_Ejercicios/data_files/michelle_obama_speech.txt',
+    '30DaysOfPython_Ejercicios/data_files/melania_trump_speech.txt'
+    ))
+# Result: 0.06405
+
+print(check_similarity('Sergio es muy guapo','Muy guapo es Alberto'))
+# Result: 0.5
+
+
 # 8 - Find the 10 most repeated words in the romeo_and_juliet.txt
-# 9 - Read the hacker news csv file and find out: a) Count the number of lines containing python or Python b) Count the number lines containing JavaScript, javascript or Javascript c) Count the number lines containing Java and not JavaScript
+print(f'*** Palabras más repetidas en Romeo y Julieta ***')
+print(find_most_common_words('30DaysOfPython_Ejercicios/data_files/romeo_and_juliet.txt',10))
+
+# 9 - Read the hacker news csv file and find out:
+#   a) Count the number of lines containing python or Python
+#   b) Count the number lines containing JavaScript, javascript or Javascript
+#   c) Count the number lines containing Java and not JavaScript
+
+
+import csv
+# Resolución usando csv
+with open('30DaysOfPython_Ejercicios/data_files/hacker_news.csv') as file:
+    csv_reader = csv.reader(file, delimiter=',')
+    line_count_contain_python = 0
+    line_count_contain_javascript = 0
+    line_count_contain_java = 0
+    for row in csv_reader:
+        for element in row:
+            if 'python' in element.lower():
+                line_count_contain_python += 1
+                break
+            if 'javascript' in element.lower():
+                line_count_contain_javascript += 1
+                break
+            elif 'java' in element.lower():
+                line_count_contain_java += 1
+                break
+print(f'Number of lines with Python: {line_count_contain_python}')
+print(f'Number of lines with Javascript: {line_count_contain_javascript}')
+print(f'Number of lines with Java: {line_count_contain_java}')
+#   Number of lines with Python: 179
+#   Number of lines with Javascript: 181
+#   Number of lines with Java: 64
+
+# Resolución usando txt
+with open('30DaysOfPython_Ejercicios/data_files/hacker_news.csv') as file_txt:
+    file = file_txt.read().splitlines()
+    for line in file:
+        if 'python' in line.lower():
+            line_count_contain_python += 1
+            break
+        if 'javascript' in line.lower():
+            line_count_contain_javascript += 1
+            break
+        elif 'java' in line.lower():
+            line_count_contain_java += 1
+            break
+print(f'Number of lines with Python: {line_count_contain_python}')
+print(f'Number of lines with Javascript: {line_count_contain_javascript}')
+print(f'Number of lines with Java: {line_count_contain_java}')
+#   Number of lines with Python: 179
+#   Number of lines with Javascript: 182
+#   Number of lines with Java: 64
