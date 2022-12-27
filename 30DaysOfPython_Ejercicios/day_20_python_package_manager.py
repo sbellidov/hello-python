@@ -1,4 +1,3 @@
-'''
 # Exercises - Day 20
 
 # 1 - Read this url and find the 10 most frequent words. romeo_and_juliet = 'http://www.gutenberg.org/files/1112/1112.txt'
@@ -132,10 +131,13 @@ print(
 print('\n*** Total of languages spoken ***')
 print(len(pd.unique(languages['name'])))
 
-'''
+
 # 4 - UCI is one of the most common places to get data sets for data science and machine learning.
 # Read the content of UCL (https://archive.ics.uci.edu/ml/datasets.php).
 # Without additional libraries it will be difficult, so you may try it with BeautifulSoup4
+
+
+### NO ESTÁ COMPLETO ###
 
 import bs4 as bs
 import requests
