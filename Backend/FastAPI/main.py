@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-# Documentación en: http://127.0.0.1:8000/docs
-# También en: http://127.0.0.1:8000/redoc
+# Documentación (Swagger): http://127.0.0.1:8000/docs
+# Documentación (Redocly): http://127.0.0.1:8000/redoc
 
 app = FastAPI()
 
