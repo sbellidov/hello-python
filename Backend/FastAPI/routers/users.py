@@ -1,8 +1,11 @@
 from fastapi import APIRouter, HTTPException
-# Iniciar el servidor con: uvicorn users:app --reload
 from pydantic import BaseModel
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/user",
+    tags=["Users"],
+    responses={404: {"message": "No encontrado"}}
+    )
 
 # Entidad users
 class User(BaseModel):
@@ -19,23 +22,23 @@ users_list = [User(id=1, name="Sergio",surname="Bellido",age=38),
 # GET ------------------------- Lee
 
 # Devuelve la lista completa de usuarios
-@router.get("/users")
+@router.get("s")
 async def usersclass():
     return users_list
 
 # ** PATH ** Devuelve el usuario según su 'id' indicado en el path
-@router.get("/userid/{id}")
+@router.get("id/{id}")
 async def userid(id: int):
     return search_user(id)
 
 # ** QUERY ** Consulta de un usuario desde query
-@router.get("/userquery/") # Añadir ==> .../?id=1
+@router.get("query/") # Añadir ==> .../?id=1
 async def user(id: int):
     return search_user(id)
 
 # POST ------------------------- Inserta
 
-@router.post("/user" , status_code = 201 )
+@router.post("/" , status_code = 201 )
 async def user(user: User):
     if type(search_user(user.id)) == User:
         raise HTTPException(status_code = 404 , detail = "El usuario ya existe")
@@ -45,7 +48,7 @@ async def user(user: User):
 
 # PUT ------------------------- Modifica
 
-@router.put("/user")
+@router.put("/")
 async def user(user: User):
     found = False
     for index,saved_user in enumerate(users_list):
@@ -59,7 +62,7 @@ async def user(user: User):
 
 # DELETE ------------------------- Borra
 
-@router.delete("/user/{id}")
+@router.delete("/{id}")
 async def user(id: int):
     found = False
     for index,saved_user in enumerate(users_list):
@@ -81,7 +84,7 @@ def search_user(id:int):
 
 #---------------------------------------------
 # Esta forma es desaconsejada, poco eficiente
-@router.get("/usersjson")
+@router.get("sjson")
 async def usersjson():
     return [{"name":"Sergio", "surname":"Bellido", "age": 38},
             {"name":"Sofia", "surname":"Bellido", "age": 9},
