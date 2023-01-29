@@ -12,6 +12,7 @@ from datetime import datetime, timedelta
 ALGORITHM = "HS256"
 ACCESS_TOKEN_DURATION = 1
 SECRET_KEY = '0aaea08713fb587a5397042592c77caf564a2d019419b8e3da871a20a0419bd0'
+# Para obtener secrets keys se puede usar el comando: openssl rand -hex 32
 
 # Para comprobar los JWT online: https://jwt.io
 
